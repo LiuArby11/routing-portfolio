@@ -1,69 +1,79 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import { motion, AnimatePresence, useScroll } from 'framer-motion'
 
 export default function Navbar() {
-  const sections = ['home', 'about', 'skills', 'projects', 'reviews', 'contact']
-  const [active, setActive] = useState('home')
-  const sectionRefs = useRef({})
+  const [isOpen, setIsOpen] = useState(false)
+  const { scrollYProgress } = useScroll() 
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id)
-          }
-        })
-      },
-      { threshold: 0.6 } // 60% ng section visible bago maging active
-    )
-
-    sections.forEach(sec => {
-      const el = document.getElementById(sec)
-      if (el) {
-        sectionRefs.current[sec] = el
-        observer.observe(el)
-      }
-    })
-
-    return () => {
-      sections.forEach(sec => {
-        const el = sectionRefs.current[sec]
-        if (el) observer.unobserve(el)
-      })
-    }
-  }, [])
-
-  const scrollToSection = (section) => {
-    const element = document.getElementById(section)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-      setActive(section)
-    }
-  }
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Skills', path: '/skills' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Reviews', path: '/reviews' },
+    { name: 'Contact', path: '/contact' },
+  ]
 
   return (
-    <nav className="bg-indigo-600 text-white px-6 py-4 fixed w-full z-50 flex justify-between items-center shadow-lg">
-      <button
-        onClick={() => scrollToSection('home')}
-        className="font-bold text-xl tracking-wider hover:text-yellow-300 transition-colors duration-300"
-      >
-        Liu Garcia
-      </button>
-      <div className="space-x-6">
-        {sections.map((section) => (
-          <button
-            key={section}
-            onClick={() => scrollToSection(section)}
-            className={`transition-colors duration-300 font-medium ${
-              active === section
-                ? 'text-yellow-300 cursor-default'
-                : 'hover:text-yellow-300'
-            }`}
-          >
-            {section.charAt(0).toUpperCase() + section.slice(1)}
-          </button>
-        ))}
+    <nav className="fixed top-0 w-full z-[100] bg-slate-950/80 backdrop-blur-md border-b border-white/5">
+      
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 to-purple-500 origin-[0%]"
+        style={{ scaleX: scrollYProgress }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <NavLink to="/" className="text-xl font-black text-white tracking-tighter">
+          ARBY<span className="text-indigo-500">.DEV</span>
+        </NavLink>
+
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              className={({ isActive }) => 
+                `text-sm font-bold uppercase tracking-widest transition-all hover:text-indigo-400 ${
+                  isActive ? 'text-indigo-500' : 'text-gray-400'
+                }`
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
+        </div>
+
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white text-2xl">
+          {isOpen ? '✕' : '☰'}
+        </button>
       </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-slate-900 border-b border-white/10 overflow-hidden"
+          >
+            <div className="flex flex-col p-6 gap-4">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) => 
+                    `text-lg font-bold ${isActive ? 'text-indigo-500' : 'text-white'}`
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }
