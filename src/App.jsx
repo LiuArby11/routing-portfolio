@@ -1,5 +1,12 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { AnimatePresence } from 'framer-motion'
+
+
 import Navbar from './components/Navbar'
+import CustomCursor from './components/CustomCursor'
+
+
 import Home from './pages/Home'
 import About from './pages/About'
 import Skills from './pages/Skills'
@@ -7,9 +14,6 @@ import Projects from './pages/Projects'
 import Reviews from './pages/Reviews'
 import ReviewDetails from './pages/ReviewDetails' 
 import Contact from './pages/Contact'
-import { useEffect } from 'react'
-import { AnimatePresence } from 'framer-motion' // Required for Page Transitions
-import CustomCursor from './components/CustomCursor'
 
 
 function ScrollToTop() {
@@ -25,7 +29,7 @@ function AnimatedRoutes() {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait"> {/* Ito ang magic: aantayin matapos ang exit animation bago pumasok ang bago */}
+    <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -41,17 +45,15 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-  <BrowserRouter>
+    <BrowserRouter>
       <ScrollToTop />
-      <CustomCursor />
-      <div className="bg-slate-950 min-h-screen">
-        <Navbar />
-        <div className="pt-16"> 
+      <CustomCursor /> 
+      <div className="bg-slate-950 min-h-screen selection:bg-indigo-500/30"> 
+        <Navbar /> 
+        <div className="pt-20"> 
           <AnimatedRoutes />
         </div>
       </div>
     </BrowserRouter>
-
-    
   )
 }

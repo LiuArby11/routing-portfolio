@@ -113,7 +113,7 @@ export default function Contact() {
                     whileTap={{ scale: 0.98 }}
                     className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
                   >
-                    Send Message 🚀
+                    Send Message 
                   </motion.button>
                 </motion.form>
               ) : (

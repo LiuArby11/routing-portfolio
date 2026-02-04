@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import profilePic from '../assets/profile.jpg'
 
@@ -7,10 +8,8 @@ export default function Home() {
       
       
       <div className="absolute inset-0 z-0">
-        
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/30 rounded-full blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-600/20 rounded-full blur-[120px] animate-pulse delay-700"></div>
-        
         
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
       </div>
@@ -29,7 +28,7 @@ export default function Home() {
         </div>
 
         
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 animate-fade-in">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -38,7 +37,7 @@ export default function Home() {
         </div>
 
         
-        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight animate-fade-in">
+        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
           <span className="text-white">Liu-Arby</span>{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
             P. Garcia
@@ -46,13 +45,13 @@ export default function Home() {
         </h1>
 
         
-        <p className="max-w-2xl text-lg md:text-xl text-gray-400 mb-10 leading-relaxed animate-fade-in delay-200">
+        <p className="max-w-2xl text-lg md:text-xl text-gray-400 mb-10 leading-relaxed">
           An <span className="text-white font-medium">IT Student from AMA</span> passionate about 
           building high-performance web applications and sleek user experiences.
         </p>
 
         
-        <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
+        <div className="flex flex-col sm:flex-row gap-4">
           <Link
             to="/projects"
             className="group relative px-8 py-3 font-bold text-white transition-all duration-300"
@@ -73,11 +72,42 @@ export default function Home() {
       </div>
 
       
-      <div className="absolute bottom-10 flex gap-6 text-gray-500 text-sm animate-fade-in delay-500">
-        <span className="hover:text-white cursor-pointer transition-colors">GitHub</span>
-        <span className="hover:text-white cursor-pointer transition-colors">LinkedIn</span>
-        <span className="hover:text-white cursor-pointer transition-colors">Facebook</span>
-      </div>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        className="absolute bottom-10 flex gap-8 text-gray-500 text-sm font-medium tracking-widest uppercase"
+      >
+        <motion.a 
+          href="https://github.com/LiuArby11" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          whileHover={{ y: -3, color: "#fff" }}
+          className="transition-colors cursor-pointer"
+        >
+          GitHub
+        </motion.a>
+
+        <motion.a 
+          href="https://linkedin.com/in/your-profile" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          whileHover={{ y: -3, color: "#fff" }}
+          className="transition-colors cursor-pointer"
+        >
+          LinkedIn
+        </motion.a>
+
+        <motion.a 
+          href="https://www.facebook.com/liuarby.garcia" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          whileHover={{ y: -3, color: "#fff" }}
+          className="transition-colors cursor-pointer"
+        >
+          Facebook
+        </motion.a>
+      </motion.div>
 
     </section>
   )

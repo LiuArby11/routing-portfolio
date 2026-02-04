@@ -43,7 +43,7 @@ export default function About() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-indigo-400 font-semibold tracking-widest uppercase text-sm mb-2"
             >
-              🚀 Introduction
+               Introduction
             </motion.h4>
 
             <motion.h2 

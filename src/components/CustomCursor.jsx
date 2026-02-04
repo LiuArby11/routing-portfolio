@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 export default function CustomCursor() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+      setMousePos({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
 
   return (
     <motion.div
@@ -18,9 +18,13 @@ export default function CustomCursor() {
       animate={{
         x: mousePos.x - 16,
         y: mousePos.y - 16,
-        scale: 1,
       }}
-      transition={{ type: 'spring', damping: 20, stiffness: 250, mass: 0.5 }}
+      transition={{ 
+        type: 'spring', 
+        damping: 25, 
+        stiffness: 300, 
+        mass: 0.5 
+      }}
     />
-  );
+  )
 }

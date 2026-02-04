@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 export default function Reviews() {
   const [name, setName] = useState('')
   const [comment, setComment] = useState('')
-  const [rating, setRating] = useState(5) // Default rating is 5 stars
+  const [rating, setRating] = useState(5) 
   const [reviews, setReviews] = useState([])
 
   useEffect(() => {
